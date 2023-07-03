@@ -1,9 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  body: MyText
+  title: What is Ruby on Rails? Why Should You Be Using Rails in Your Project?
+  body: What is Ruby on Rails? Should you use Rails in your tech stack? What kind of projects is Ruby on Rails used for? Read our article to find out.
 
 two:
-  title: MyString
-  body: MyText
+  title: Ruby on Rails VS NodeJS – The Ultimate Framework Comparison
+  body: Ruby on Rails vs Nodejs Wondering what to choose for building a web app? Read this blog to find 6 key difference between ruby on rails and node js.
+#  RAILS_ENV=test rails db:fixtures:load
+#  RAILS_ENV=test bin/rails console test
