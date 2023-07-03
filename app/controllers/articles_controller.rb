@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  def index
-    redirect_to '/', status: :unprocessable_entity
-  end
+  def index; end
 end
+
+# redirect_to '/', status: :unprocessable_entity
