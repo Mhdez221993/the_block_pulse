@@ -13,7 +13,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'shuld get show' do
-    get article_url(@article)
+    get "/articles/#{@article.id}"
     assert_response :success
     assert_select 'h1', @article.title
     assert_select 'p', @article.body
