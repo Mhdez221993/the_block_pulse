@@ -7,4 +7,12 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'h1', 'Articles'
     assert_select 'li', Article.count
   end
+
+  test 'shuld get show' do
+    @article = articles(:one)
+    get article_url(@article)
+    assert_response :success
+    assert_select 'h1', @article.title
+    assert_select 'p', @article.body
+  end
 end
