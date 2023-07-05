@@ -7,8 +7,12 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
+  def new
+    @article = Article.new
+  end
+
   def create
-    @article = Article.new(title: 'Stateless', body: 'Code')
+    @article = Article.new(params[:article])
 
     if @article.save
       redirect_to @article, notice: 'Article was succefully created.'
