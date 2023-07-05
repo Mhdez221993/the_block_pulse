@@ -29,8 +29,8 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should create article' do
-    article_title = 'Sleeptime'
-    article_body = "I'm asleep: #{'z' * 1000}"
+    article_title = 'Sleeptime' * 3
+    article_body = "I'm asleep: #{'z' * 2000}"
 
     assert_difference('Article.count') do
       post articles_url, params: {
@@ -46,5 +46,23 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_equal article_title, article.title
     assert_equal article_body, article.body
     assert_equal 'Article was succefully created.', flash[:notice]
+  end
+
+  test 'should display errors if validations fail' do
+    assert_no_difference('Article.count') do
+      post articles_url, params: {
+        article: {
+          title: '',
+          body: ''
+        }
+      }
+    end
+
+    assert_select 'h1', 'New Article'
+    assert_select 'form'
+    assert_select 'form div.error', 4
+    assert_select 'form div.error', @title_blank
+    assert_select 'form div.error', @body_blank
+    assert_select 'form div.error', @body_short
   end
 end
