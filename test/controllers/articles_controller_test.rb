@@ -20,6 +20,14 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'p', @article.body
   end
 
+  test 'shuold get new' do
+    get new_article_url(@article)
+    assert_response :success
+    assert_select 'h1', 'New Article'
+    assert_select 'form'
+    assert_select 'form div', 3
+  end
+
   test 'should create article' do
     assert_difference('Article.count') do
       post articles_url
