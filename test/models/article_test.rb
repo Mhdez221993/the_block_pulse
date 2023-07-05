@@ -5,7 +5,7 @@ class ArticleTest < ActiveSupport::TestCase
     @article = articles(:one)
     @valid_title = 'I have a valid tittle'
     @valid_body = 'This body is long enough.'
-    @title_blanck = "Title can't be blanck"
+    @title_blank = "Title can't be blank"
     @body_blanck = "Body can't be blanck"
     @body_short = 'Body is too short (minimun is 10 characters)'
   end
@@ -22,5 +22,17 @@ class ArticleTest < ActiveSupport::TestCase
 
     # existing
     assert @article.valid?
+  end
+
+  test 'should be invalid if title is blank' do
+    # new
+    article = Article.new(body: @valid_body)
+    assert_not article.valid?
+    assert_includes article.errors.full_messages, @title_blank
+
+    # existing with nil
+    @article.title = nil
+    assert_not @article.valid?
+    assert_includes @article.errors.full_messages, @title_blank
   end
 end
