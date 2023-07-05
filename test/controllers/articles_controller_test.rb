@@ -29,14 +29,22 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should create article' do
+    article_title = 'Sleeptime'
+    article_body = "I'm asleep: #{'z' * 1000}"
+
     assert_difference('Article.count') do
-      post articles_url
+      post articles_url, params: {
+        article: {
+          title: article_title,
+          body: article_body
+        }
+      }
     end
 
     article = Article.last
     assert_redirected_to article_path(article)
-    assert_equal 'Stateless', article.title
-    assert_equal 'Code', article.body
+    assert_equal article_title, article.title
+    assert_equal article_body, article.body
     assert_equal 'Article was succefully created.', flash[:notice]
   end
 end
