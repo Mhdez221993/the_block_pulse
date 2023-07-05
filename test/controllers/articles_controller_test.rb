@@ -10,6 +10,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'h1', 'Articles'
     assert_select 'li', Article.count
+    assert_select 'a', 'New Article'
   end
 
   test 'should get show' do
