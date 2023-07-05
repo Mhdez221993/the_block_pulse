@@ -3,6 +3,11 @@ require 'test_helper'
 class ArticlesControllerTest < ActionDispatch::IntegrationTest
   def setup
     @article = articles(:one)
+    @title_blank = "Title can't be blank"
+    @body_blank = "Body can't be blank"
+    @body_short = 'Body is too short (minimum is 2000 characters)'
+    @article_title = 'Sleeptime' * 3
+    @article_body = "I'm asleep: #{'z' * 2000}"
   end
 
   test 'should get index' do
@@ -19,6 +24,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'h1', @article.title
     assert_select 'p', @article.body
+    assert_select 'a', 'Edit'
   end
 
   test 'shuold get new' do
@@ -30,23 +36,18 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should create article' do
-    article_title = 'Sleeptime' * 3
-    article_body = "I'm asleep: #{'z' * 2000}"
-
     assert_difference('Article.count') do
       post articles_url, params: {
         article: {
-          title: article_title,
-          body: article_body
+          title: @article_title,
+          body: @article_body
         }
       }
     end
 
     article = Article.last
-    assert_redirected_to article_path(article)
-    assert_equal article_title, article.title
-    assert_equal article_body, article.body
-    assert_equal 'Article was succefully created.', flash[:notice]
+    saved_article_assertions(article)
+    assert_equal 'Article was successfully created.', flash[:notice]
   end
 
   test 'should display errors if validations fail' do
@@ -60,10 +61,57 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_select 'h1', 'New Article'
+    form_error_assertions
+  end
+
+  test 'should get edit' do
+    get edit_article_url(@article)
+    assert_response :success
+    assert_select 'h1', 'Edit Article'
     assert_select 'form'
-    assert_select 'form div.error', 4
-    assert_select 'form div.error', @title_blank
-    assert_select 'form div.error', @body_blank
-    assert_select 'form div.error', @body_short
+    assert_select 'form div', 3
+  end
+
+  test 'should update article' do
+    patch article_url(@article), params: {
+      article: {
+        title: @article_title,
+        body: @article_body
+      }
+    }
+
+    @article.reload
+    saved_article_assertions(@article)
+    assert_equal 'Article was successfully updated.', flash[:notice]
+  end
+
+  test 'should display errors if update validations fails' do
+    patch article_url(@article), params: {
+      id: @article.id,
+      article: {
+        title: '',
+        body: ''
+      }
+    }
+
+    assert_select 'h1', 'Edit Article'
+    form_error_assertions
+  end
+
+  private
+
+  def saved_article_assertions(article)
+    assert_redirected_to article_path(article)
+    assert_equal @article_title, article.title
+    assert_equal @article_body, article.body
+  end
+
+  def form_error_assertions
+    assert_select 'form'
+    assert_select 'div.error', 4
+    assert_select 'div.error', @title_blank
+    assert_select 'div.error', @body_blank
+    assert_select 'div.error', @body_short
+    puts 'End of form_error_assertions'
   end
 end
