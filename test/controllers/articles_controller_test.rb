@@ -114,6 +114,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to article_path(article)
     assert_equal @article_title, article.title
     assert_equal @article_body, article.body
+    puts 'End of saved_article_assertions'
   end
 
   def form_error_assertions
