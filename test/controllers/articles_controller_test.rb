@@ -26,6 +26,11 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'p', @article.body
     assert_select 'a', 'Edit'
     assert_select 'a', 'Destroy'
+    assert_select 'h2', 'Comments'
+    assert_select 'p.commenter', @article.comments.count
+    assert_select 'p.comment-body', @article.comments.count
+    assert_select 'h2', 'Add a comment:'
+    assert_select 'form p', 3
   end
 
   test 'shuold get new' do
