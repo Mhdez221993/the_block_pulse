@@ -25,6 +25,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'h1', @article.title
     assert_select 'p', @article.body
     assert_select 'a', 'Edit'
+    assert_select 'a', 'Destroy'
   end
 
   test 'shuold get new' do
@@ -96,6 +97,15 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
 
     assert_select 'h1', 'Edit Article'
     form_error_assertions
+  end
+
+  test 'should destroy article' do
+    assert_difference('Article.count', -1) do
+      delete article_path(Article.last), params: { id: Article.last.id }
+    end
+
+    assert_redirected_to articles_path
+    assert_equal 'Article was successfully destroyed', flash[:notice]
   end
 
   private
