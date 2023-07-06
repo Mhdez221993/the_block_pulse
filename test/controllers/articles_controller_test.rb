@@ -84,6 +84,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     @article.reload
     saved_article_assertions(@article)
     assert_equal 'Article was successfully updated.', flash[:notice]
+
   end
 
   test 'should display errors if update validations fails' do
@@ -106,6 +107,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to articles_path
     assert_equal 'Article was successfully destroyed', flash[:notice]
+
   end
 
   private

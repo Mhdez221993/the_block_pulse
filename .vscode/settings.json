@@ -1,5 +1,6 @@
 {
   "ruby.codeCompletion": "rcodetools",
   "ruby.intellisense": "rubyLocate",
-  "ruby.useBundler": true
+  "ruby.useBundler": true,
+  "ruby.useLanguageServer": true
 }

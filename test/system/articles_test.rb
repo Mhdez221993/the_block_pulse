@@ -11,6 +11,7 @@ class ArticlesTest < ApplicationSystemTestCase
       click_on 'Destroy'
     end
 
+    assert_text 'Article was successfully destroyed'
     assert_text 'Article'
     assert_no_text @article.title
     assert_text articles(:two).title
