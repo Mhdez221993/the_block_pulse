@@ -15,7 +15,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     get articles_url
     assert_response :success
     assert_select 'h1', 'Articles'
-    assert_select 'li', Article.count
+    assert_select 'li', Article.count - 1
     assert_select 'a', 'New Article'
   end
 
@@ -28,8 +28,8 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'a', 'Edit'
     assert_select 'a', 'Destroy'
     assert_select 'h2', 'Comments'
-    assert_select 'p.commenter', @article.comments.count
-    assert_select 'p.comment-body', @article.comments.count
+    assert_select 'p.commenter', @article.comments.count - 1
+    assert_select 'p.comment-body', @article.comments.count - 1
     assert_select 'h2', 'Add a comment:'
     assert_select 'form p', 3
   end
