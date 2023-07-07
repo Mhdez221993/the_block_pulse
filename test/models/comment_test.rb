@@ -6,7 +6,7 @@ class CommentTest < ActiveSupport::TestCase
     @comment = comments(:two)
     @commenter = 'A new commenter'
     @valid_body = "I'm a comment body"
-    @valid_status = 'public'
+    @valid_status = 'private'
     @bad_status = 'Censored'
     @status_inclusion = 'Status is not included in the list'
   end
@@ -25,7 +25,7 @@ class CommentTest < ActiveSupport::TestCase
     comment.reload
     assert_not_nil comment.id
     assert_equal @article.id, comment.article_id
-    assert_equal @valid_commenter, comment.commenter
+    assert_equal @commenter, comment.commenter
     assert_equal @valid_body, comment.body
     assert_equal @valid_status, comment.status
 

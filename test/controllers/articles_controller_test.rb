@@ -8,6 +8,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     @body_short = 'Body is too short (minimum is 2000 characters)'
     @article_title = 'Sleeptime' * 3
     @article_body = "I'm asleep: #{'z' * 2000}"
+    @valid_status = 'private'
   end
 
   test 'should get index' do
@@ -46,7 +47,8 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
       post articles_url, params: {
         article: {
           title: @article_title,
-          body: @article_body
+          body: @article_body,
+          status: @valid_status
         }
       }
     end
