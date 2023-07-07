@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  status: private
   commenter: Adding a Second Model
   body: It's time to add a second model to the application. The second model will handle comments on articles.
   article: one
 
 two:
+  status: private
   commenter: Generating a Model
   body: We're going to see the same generator that we used before when creating the Article model.
   article: two
