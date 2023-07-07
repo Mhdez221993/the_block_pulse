@@ -17,6 +17,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'h1', 'Articles'
     assert_select 'li', Article.count - 1
     assert_select 'a', 'New Article'
+    assert_select 'p.public-count', 'Our blog has 1 article and counting!'
   end
 
   test 'should get show' do
