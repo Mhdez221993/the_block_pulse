@@ -8,6 +8,8 @@ class ArticleTest < ActiveSupport::TestCase
     @title_blank = "Title can't be blank"
     @body_blank = "Body can't be blank"
     @body_short = 'Body is too short (minimum is 2000 characters)'
+    @bad_status = 'Censored'
+    @status_inclusion = 'Status is not included in the list'
   end
 
   test 'should be valid and creatable with correct attributes' do
@@ -59,5 +61,17 @@ class ArticleTest < ActiveSupport::TestCase
     @article.body = too_short
     assert_not @article.valid?
     assert_includes @article.errors.full_messages, @body_short
+  end
+
+  test 'should be invalid with bad status' do
+    # new
+    article = Article.new(title: @validate_title, body: @validate_body, status: @bad_status)
+    assert_not article.valid?
+    assert_includes article.errors.full_messages, @status_inclusion
+
+    # existing
+    @article.status = @bad_status
+    assert_not @article.valid?
+    assert_includes @article.errors.full_messages, @status_inclusion
   end
 end
