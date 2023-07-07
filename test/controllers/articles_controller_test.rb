@@ -32,7 +32,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'p.commenter', @article.comments.count - 1
     assert_select 'p.comment-body', @article.comments.count - 1
     assert_select 'h2', 'Add a comment:'
-    assert_select 'form p', 3
+    assert_select 'form p', 4
   end
 
   test 'shuold get new' do
@@ -40,7 +40,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'h1', 'New Article'
     assert_select 'form'
-    assert_select 'form div', 3
+    assert_select 'form div', 4
   end
 
   test 'should create article' do
@@ -78,7 +78,7 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'h1', 'Edit Article'
     assert_select 'form'
-    assert_select 'form div', 3
+    assert_select 'form div', 4
   end
 
   test 'should update article' do
