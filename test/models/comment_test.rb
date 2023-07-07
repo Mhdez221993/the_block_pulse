@@ -44,4 +44,15 @@ class CommentTest < ActiveSupport::TestCase
     assert_not @article.valid?
     assert_includes @article.errors.full_messages, @status_inclusion
   end
+
+  test 'archived should be true if archived' do
+    @comment.status = 'archived'
+    assert @comment.archived?
+  end
+
+  test 'archived should be false if not archived' do
+    assert_not @comment.archived?
+    @comment.status = 'private'
+    assert_not @comment.archived?
+  end
 end

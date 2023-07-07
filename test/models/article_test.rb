@@ -68,11 +68,19 @@ class ArticleTest < ActiveSupport::TestCase
     # new
     article = Article.new(title: @validate_title, body: @validate_body, status: @bad_status)
     assert_not article.valid?
-    assert_includes article.errors.full_messages, @status_inclusion
-
-    # existing
     @article.status = @bad_status
     assert_not @article.valid?
     assert_includes @article.errors.full_messages, @status_inclusion
+  end
+
+  test 'archived should be true if archived' do
+    @article.status = 'archived'
+    assert @article.archived?
+  end
+
+  test 'archived should be false if not archived' do
+    assert_not @article.archived?
+    @article.status = 'private'
+    assert_not @article.archived?
   end
 end

@@ -3,6 +3,7 @@ require "test_helper"
 class CommentsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @article = articles(:one)
+    @valid_status = 'private'
   end
 
   test 'should create a comment' do
@@ -12,7 +13,8 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
       post article_comments_url(@article), params: {
         comment: {
           commenter: commenter,
-          body: body
+          body: body,
+          status: @valid_status
         }
       }
     end
