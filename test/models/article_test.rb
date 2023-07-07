@@ -9,12 +9,13 @@ class ArticleTest < ActiveSupport::TestCase
     @body_blank = "Body can't be blank"
     @body_short = 'Body is too short (minimum is 2000 characters)'
     @bad_status = 'Censored'
+    @valid_status = 'public'
     @status_inclusion = 'Status is not included in the list'
   end
 
   test 'should be valid and creatable with correct attributes' do
     # new
-    article = Article.new(title: @valid_title, body: @valid_body)
+    article = Article.new(title: @valid_title, body: @valid_body, status: @valid_status)
     assert article.valid?
     assert article.save
     article.reload
